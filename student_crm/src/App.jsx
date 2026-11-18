@@ -1,16 +1,33 @@
 // import './App.css'
-import Header from './components/Header';
-import StudentList from './components/StudentList';
-import { students } from './data/students';
-import Footer from './components/Footer';
+import { useState } from 'react';
+import Header from './components/Header.jsx';
+import StudentList from './components/StudentList.jsx';
+import { students as initialStudents } from './data/students.js';
+import Footer from './components/Footer.jsx';
 
 function App() {
+    const [students, setStudents] = useState(initialStudents);
 
-  return (
+    function addStudent() {
+        const newStudent = {
+            id: crypto.randomUUID(),
+            name: "New Student",
+            age: 20,
+            group: "React Basics",
+            isActive: true
+        };
+
+        setStudents([...students, newStudent]);
+    }
+
+    return (
     <>
         <Header />
 
         <main className="main-content">
+            <button onClick={addStudent}>
+                Добавить студента
+            </button>
             <StudentList students={students} />
         </main>
 
